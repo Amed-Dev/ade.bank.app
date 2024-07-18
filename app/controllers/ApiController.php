@@ -32,7 +32,7 @@ class ApiController
       }
 
       $accion = $data['method'] ?? null;
-      
+
       if ($accion === null) {
         $this->sendResponse(['error' => 'No method provided'], 400);
         return;
@@ -51,14 +51,23 @@ class ApiController
         case 'login':
           $this->login->login();
           break;
-        case 'getDataUser':
-          $this->user->getDataUser();
-          break;
         case 'logout':
           $this->login->logout();
           break;
-        case 'update':
+        case 'getDataUser':
+          $this->user->getDataUser();
+          break;
+        case 'getUser':
+          $this->user->getUser();
+          break;
+        case 'updateUser':
           $this->user->updateUser();
+          break;
+        case 'updateUserPassword':
+          $this->user->updateUserPassword();
+          break;
+        case 'deleteAccount':
+          $this->user->deleteUserAccount();
           break;
         default:
           $this->sendResponse(['error' => 'Invalid method'], 400);

@@ -19,21 +19,25 @@ class Login
       $password = $_POST['password'];
 
       $user = User::getUserByEmail($username);
-      if ($user && password_verify($password, $user->getPassword())) {
-        $_SESSION['user'] = [
-          'Id' => $user->getId(),
-          'Username' => $user->getUsername(),
-          'Name' => $user->getFullName(),
-          'Email' => $user->getEmail(),
-          'Password' => $user->getPassword(),
-          'Avatar' => $user->getAvatar(),
-        ];
-        ;
-        echo json_encode(['status' => 'success', 'message' => 'Sesión Iniciada']);
+      if ($user) {
+        if ($user && password_verify($password, $user->getPassword())) {
+          $_SESSION['user'] = [
+            'Id' => $user->getId(),
+            'Username' => $user->getUsername(),
+            'Name' => $user->getFullName(),
+            'Email' => $user->getEmail(),
+            'Password' => $user->getPassword(),
+            'Avatar' => $user->getAvatar(),
+          ];
+
+          echo json_encode(['status' => 'success', 'message' => 'Sesión Iniciada']);
+        } else {
+          echo json_encode(['status' => 'failed', 'message' => 'Nombre de usuario o contraseña incorrecto.']);
+        }
       } else {
-        echo json_encode(['status' => 'failed', 'message' => 'Nombre de usuario o contraseña incorrecto.']);
+        echo json_encode(['status' => 'failed', 'message' => 'Usuario no registrado']);
       }
-      ;
+
     } else {
       require '../app/views/login.php';
     }

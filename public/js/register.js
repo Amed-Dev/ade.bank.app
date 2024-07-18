@@ -1,8 +1,10 @@
 import { $ } from "./utils/dom.js";
+import { PasswordToggle } from "./components/password_toggle/PasswordToggle.js";
 
 $("#btn__iniciar-sesion").addEventListener("click", iniciarSesion);
 window.addEventListener("resize", anchoPage);
 
+const password_toggle_view = new PasswordToggle("#password_register");
 const message = $("#message");
 const colors = ["#87CEEB", "#98FB98", "#ababab", "#e7e7bb"];
 

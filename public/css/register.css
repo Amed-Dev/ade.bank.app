@@ -1,5 +1,8 @@
 /* Register */
-#register-container{
+body {
+  font-family: "Roboto", sans-serif;
+}
+#register-container {
   padding: 0px;
   display: flex;
   justify-content: center;
@@ -66,7 +69,6 @@
   background: #fff;
   color: #46a2fd;
 }
-
 
 .contenedor__login-register {
   display: flex;

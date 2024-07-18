@@ -1,10 +1,13 @@
 import { $ } from "./utils/dom.js";
+import { PasswordToggle } from "./components/password_toggle/PasswordToggle.js";
 
 //Ejecutando funciones
 $("#btn__registrarse").addEventListener("click", register);
 window.addEventListener("resize", anchoPage);
 
 //Declarando variables
+const password_toggle_view = new PasswordToggle('#password_login');
+
 const message = $("#message");
 var formulario_login = document.querySelector(".formulario__login");
 var contenedor_login_register = document.querySelector(

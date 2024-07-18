@@ -15,6 +15,9 @@ body {
   flex-direction: column;
 }
 
+ul{
+  list-style: none;
+}
 body,
 input,
 select,
@@ -93,6 +96,7 @@ a:hover {
   display: inline-block;
   font-size: 1.5em;
   padding: 1em 0;
+  margin: 0;
   letter-spacing: -1.2px;
   font-weight: 900;
   text-transform: uppercase;

@@ -1,12 +1,14 @@
-<?php 
+<?php
 namespace App\Models;
 
 use App\Models\User;
 
 
-class Register{
+class Register
+{
 
-  public function laoadRegister(){
+  public function laoadRegister()
+  {
     header('location: /register');
   }
 
@@ -24,7 +26,7 @@ class Register{
       $userModel->createUser($name, $last_name, $username, $email, $password, $avatar);
 
       echo json_encode(['status' => 'success', 'message' => 'Registro exitoso']);
-      
+
     } else {
       require '../app/views/register.php';
     }

@@ -138,9 +138,9 @@ class User
 
   public function getUser()
   {
-    if (isset($_SESSION['user_id'])) {
-      $userId = $_SESSION['user_id'];
-      $stmt = $this->db->query("SELECT username, name, email FROM users WHERE id = :id", [':id' => $userId]);
+    if (isset($_SESSION['user'])) {
+      $userId = $_SESSION['user']['Id'];
+      $stmt = $this->db->query("SELECT Username, Name, Last_name, Email FROM users WHERE Id = :id", [':id' => $userId]);
       $user = $stmt->fetch();
       $this->sendResponse(['user' => $user]);
     } else {
@@ -149,45 +149,86 @@ class User
   }
   public function updateUser()
   {
-    if (isset($_SESSION['user_id'])) {
-      $userId = $_SESSION['user_id'];
+    if (isset($_SESSION['user'])) {
+      $userId = $_SESSION['user']['Id'];
+      $username = $_POST['username'];
       $name = $_POST['name'];
+      $last_name = $_POST['last_name'];
       $email = $_POST['email'];
-      $password = $_POST['password'] ? password_hash($_POST['password'], PASSWORD_BCRYPT) : null;
 
-      $sql = "UPDATE users SET name = :name, email = :email";
+      $sql = "UPDATE users SET Name = :name, Last_name =:last_name, Email = :email WHERE Id = :id";
       $params = [
         ':name' => $name,
+        ':last_name' => $last_name,
         ':email' => $email,
         ':id' => $userId
       ];
 
-      if ($password) {
-        $sql .= ", password = :password";
-        $params[':password'] = $password;
+      $stmt = $this->db->query($sql, $params);
+
+      if ($stmt) {
+        $user = User::getUserByUsername($username);
+
+        $_SESSION['user'] = [
+          'Id' => $_SESSION['user']['Id'],
+          'Username' => $user->getUsername(),
+          'Name' => $user->getFullName(),
+          'Email' => $user->getEmail(),
+          'Password' => $_SESSION['user']['Password'],
+          'Avatar' => $user->getAvatar(),
+        ];
       }
 
-      $sql .= " WHERE id = :id";
-
-      $this->db->query($sql, $params);
-
-      $this->sendResponse(['status' => 'success', 'message' => 'Profile updated successfully']);
+      $this->sendResponse(['status' => 'success', 'message' => 'Perfil actualizado exitosamente.', 'user' => $_SESSION['user']['Name']]);
     } else {
-      $this->sendResponse(['error' => 'User not authenticated'], 401);
+      $this->sendResponse(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
   }
 
-  public function deleteUser()
-  {
-    if (isset($_SESSION['user_id'])) {
-      $userId = $_SESSION['user_id'];
 
-      $this->db->query("DELETE FROM users WHERE id = :id", [':id' => $userId]);
+  public function updateUserPassword()
+  {
+    if (isset($_SESSION['user'])) {
+      $userId = $_SESSION['user']['Id'];
+      $password = $_POST['new_password'];
+
+      $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+      $sql = "UPDATE users SET Password = :password WHERE Id = :id";
+      $params = [
+        ':password' => $hashedPassword,
+        ':id' => $userId
+      ];
+
+      $stmt = $this->db->query($sql, $params);
+      if ($stmt) {
+        $user = User::getUserByUsername($_SESSION['user']['Username']);
+        $_SESSION['user'] = [
+          'Id' => $_SESSION['user']['Id'],
+          'Username' => $user->getUsername(),
+          'Name' => $user->getFullName(),
+          'Email' => $user->getEmail(),
+          'Password' => $user->getPassword(),
+          'Avatar' => $user->getAvatar(),
+        ];
+      }
+
+      $this->sendResponse(['status' => 'success', 'message' => 'La contraseña ha sido actualizada correctamente, usela la próxima vez que inicie sesión']);
+    } else {
+      $this->sendResponse(['status' => 'error', 'message' => 'User not authenticated'], 401);
+    }
+  }
+  public function deleteUserAccount()
+  {
+    if (isset($_SESSION['user'])) {
+      $userId = $_SESSION['user']['Id'];
+
+      $this->db->query("DELETE FROM users WHERE Id = :id", [':id' => $userId]);
 
       session_destroy();
-      $this->sendResponse(['status' => 'success', 'message' => 'Account deleted successfully']);
+      $this->sendResponse(['status' => 'success', 'message' => 'Cuenta eliminada exitosamente']);
     } else {
-      $this->sendResponse(['error' => 'User not authenticated'], 401);
+      $this->sendResponse(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
   }
 

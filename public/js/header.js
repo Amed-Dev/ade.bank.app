@@ -1,4 +1,4 @@
-import { $ } from "./utils/dom.js";
+import { $, $$ } from "./utils/dom.js";
 
 const user = async () => {
   try {
@@ -63,13 +63,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const userData = await user();
   if (userData) {
     const username = userData.Name;
-    // responsive_header(username);
-    $(".profile-info-name").textContent = username;   
+    $(".profile-info-name").textContent = username;
 
     profile_btn.setAttribute("href", `/user/${userData.Username}`);
   } else {
     console.error("Failed to load user data.");
   }
 });
-
-
