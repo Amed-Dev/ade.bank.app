@@ -4,30 +4,32 @@ namespace App\Controllers;
 use App\Models\Login;
 use App\Models\Register;
 use App\Models\User;
+use App\Models\Account;
 
 class ApiController
 {
   private $login;
   private $register;
   private $user;
-
+  private $account;
   public function __construct()
   {
     $this->login = new Login();
     $this->register = new Register();
     $this->user = new User();
+    $this->account = new Account();
+
   }
 
   public function handleRequest()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Detect if the request is JSON
+
       $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
       if (strpos($contentType, 'application/json') !== false) {
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);
       } else {
-        // Assume it's form data
         $data = $_POST;
       }
 
@@ -68,6 +70,12 @@ class ApiController
           break;
         case 'deleteAccount':
           $this->user->deleteUserAccount();
+          break;
+        case 'transfermoney':
+          $this->account->payOrtransfer();
+          break;
+        case 'payServices':
+          $this->account->payOrtransfer();
           break;
         default:
           $this->sendResponse(['error' => 'Invalid method'], 400);

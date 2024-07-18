@@ -1,5 +1,6 @@
 <?php
 $user = $_SESSION['user'];
+$account = $_SESSION['account'];
 $pageTitle = "Dashboard";
 $bannerTitle = "Dashboard";
 $styles = "/css/dashboard.css";
@@ -9,11 +10,81 @@ include '../templates/header.php'
 
 <main id="dashboard">
   <div class="widgets-operations">
+    <div id="services">
     <span class="bold fs-2 text-dblue">¿Qué desea hacer hoy?</span>
     <div class="operations_board">
-      <button class="operation_btn"><i class="fa-solid fa-right-left"></i> Transferir Dinero</button>
-      <button class="operation_btn"><i class="fa-solid fa-droplet"></i> Pagar Servicios</button>
+        <button class="operation_btn" id="btn__transferMoney"><i class="fa-solid fa-right-left"></i> Transferir
+          Dinero</button>
+        <button class="operation_btn" id="btn__payServices"> <i class="fa-solid fa-droplet"></i> Pagar Servicios</button>
     </div>
+  </div>
+
+
+    <div id="transfer" class="hidden">
+      <span class="bold fs-2 text-dblue">Transferir Dinero</span>
+      <div class="operations_board">
+
+        <form action="" method="POST" id="form-transfermoney" class="operation_btn w_100">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <input type="text" name="accountnumber" class="form-control" id="accountnumber"
+              placeholder="Numero de cuenta" required />
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <input type="number" name="amount" id="amount" class="form-control" placeholder="Monto" required />
+          </div>
+          <div class="input-group">
+            <button type="submit" class="operation_btn btn_payment" id="loading">Pagar</button>
+          </div>
+          <div class="input-group">
+            <button type="button" class="operation_btn btn_back" id="btn__backtransfer">Volver</button>
+          </div>
+          <div id="messageTransfer"></div>
+        </form>
+      </div>
+    </div>
+
+    <div id="payservices" class="hidden">
+      <span class="bold fs-2 text-dblue">Pagar servicios</span>
+      <div class="operations_board">
+
+        <form action="" method="POST" id="form-payServices" class="operation_btn w_100">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <input type="text" name="accountnumber" class="form-control" id="accountnumber"
+              placeholder="Numero de cuenta" required />
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <input type="number" name="amount" id="amount" class="form-control" placeholder="Monto" required />
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <input type="text" name="destination" id="destination" class="form-control" placeholder="Detalle del servicio" required />
+          </div>
+          <div class="input-group">
+            <button type="submit" class="operation_btn btn_payment" id="loading">Pagar</button>
+          </div>
+          <div class="input-group">
+            <button type="button" class="operation_btn btn_back" id="btn__backpayservices">Volver</button>
+          </div>
+          <div id="messageServices"></div>
+        </form>
+      </div>
+    </div>
+
+    <div id="loader" class="loader"></div>
   </div>
   <div class="my_products">
     <h2 class="text-dblue">Mis Productos</h2>
@@ -35,16 +106,20 @@ include '../templates/header.php'
       <div class="container-product-info">
         <div class="product-type">
           <span>Cuentas de ahorros</span>
-          <div class="card-info"><span>****</span><span>8235</span></div>
+          <div class="card-info"><?= $account['AccountNumber'] ?>
+          <!-- <span>****</span><span>8235</span> -->
+        </div>
         </div>
         <div class="available_balance">
-          <b>S/ 900.98</b>
+          <b class="balance-label" data-balance="<?= $account['Balance'] ?>"></b>
           <span class="bold">Saldo disponible</span>
         </div>
       </div>
     </div>
 
   </div>
+
+
 
 </main>
 <script type="module" src="/js/dashboard.js"></script>

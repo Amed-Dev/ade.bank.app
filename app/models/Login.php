@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Account;
 
 class Login
 {
@@ -30,10 +31,23 @@ class Login
             'Avatar' => $user->getAvatar(),
           ];
 
+          $account = Account::getAccountByUserId($user->getId());
+          if ($account) {
+            $_SESSION['account'] = [
+              'Id' => $account->getId(),
+              'UserId' => $account->getUserId(),
+              'AccountNumber' => $account->getAccountNumber(),
+              'Balance' => $account->getBalance()
+            ];
+          } else {
+            return null;
+          }
           echo json_encode(['status' => 'success', 'message' => 'Sesión Iniciada']);
         } else {
           echo json_encode(['status' => 'failed', 'message' => 'Nombre de usuario o contraseña incorrecto.']);
         }
+
+
       } else {
         echo json_encode(['status' => 'failed', 'message' => 'Usuario no registrado']);
       }
