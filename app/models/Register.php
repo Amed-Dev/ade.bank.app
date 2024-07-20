@@ -52,7 +52,7 @@ class Register
 
 
     } else {
-      require '../app/views/register.php';
+      require '../App/Views/register.php';
     }
   }
 }

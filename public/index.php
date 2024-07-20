@@ -2,7 +2,7 @@
 
 spl_autoload_register(function ($class) {
   $prefix = 'App\\';
-  $base_dir = __DIR__ . '/../app/';
+  $base_dir = __DIR__ . '/../App/';
 
   $len = strlen($prefix);
   if (strncmp($prefix, $class, $len) !== 0) {
@@ -10,11 +10,14 @@ spl_autoload_register(function ($class) {
   }
 
   $relative_class = substr($class, $len);
+
   $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
   if (file_exists($file)) {
     require $file;
+  } else {
+    error_log('File not found' . $file);
   }
 });
 
-require '../routes/web.php';
+require __DIR__ . '/../routes/web.php';

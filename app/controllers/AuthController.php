@@ -36,7 +36,7 @@ class AuthController
     $user = User::getUserByUsername($username);
 
     if ($user) {
-      require '../app/views/profile.php';
+      require '../App/Views/profile.php';
     } else {
       echo "User not found";
     }
@@ -47,7 +47,7 @@ class AuthController
       header('location: /login');
     } else {
 
-      require '../app/views/cuenta_ahorros.php';
+      require '../App/Views/cuenta_ahorros.php';
     }
   }
   public function dashboard()
@@ -55,7 +55,7 @@ class AuthController
     if (!isset($_SESSION['user'])) {
       header('location: /login');
     } else {
-      require '../app/views/dashboard.php';
+      require '../App/Views/dashboard.php';
     }
   }
 
@@ -64,11 +64,11 @@ class AuthController
     if (!isset($_SESSION['user'])) {
       header('location: /login');
     } else {
-      require '../app/views/edit_profile.php';
+      require '../App/Views/edit_profile.php';
     }
   }
   public function pageNotFound()
   {
-    require '../app/views/404.php';
+    require '../App/Views/404.php';
   }
 }

@@ -53,7 +53,7 @@ class Login
       }
 
     } else {
-      require '../app/views/login.php';
+      require '../App/Views/login.php';
     }
   }
 

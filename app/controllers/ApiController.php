@@ -89,7 +89,7 @@ class ApiController
   private function loadLoginView()
   {
     ob_start();
-    require '../app/views/login.php';
+    require '../App/Views/login.php';
     $content = ob_get_clean();
     $this->sendResponse($content);
   }
