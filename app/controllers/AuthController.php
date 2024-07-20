@@ -41,7 +41,15 @@ class AuthController
       echo "User not found";
     }
   }
+  public function cuenta_ahorros()
+  {
+    if (!isset($_SESSION['user'])) {
+      header('location: /login');
+    } else {
 
+      require '../app/views/cuenta_ahorros.php';
+    }
+  }
   public function dashboard()
   {
     if (!isset($_SESSION['user'])) {

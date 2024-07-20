@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/login.css">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-  <title>Techs | login</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>ADE Bank | login</title>
 </head>
 
 <body>
@@ -39,7 +40,8 @@
             </span>
             <input type="password" name="password" class="form-control" id="password_login" placeholder="Contraseña"
               required />
-            <span class="input-group-addon toggle_show_password" data-toggle="input_password" data-target="#password_login">
+            <span class="input-group-addon toggle_show_password" data-toggle="input_password"
+              data-target="#password_login">
               <svg class="eye" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
                 <title>Mostrar contraseña</title>
                 <path

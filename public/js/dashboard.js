@@ -1,17 +1,12 @@
-import { $,$$ } from "./utils/dom.js";
+import { $, $$ } from "./utils/dom.js";
+import { Modal } from "./components/modal/modal.js";
 
 var formulario_transfer = document.getElementById("form-transfermoney");
 var formulario_paySevices = document.getElementById("form-payServices");
 const messageTransfer = $("#messageTransfer");
 const messageService = $("#messageServices");
 
-//Ejecutando funciones
-$("#btn__transferMoney").addEventListener("click", btn_transferMoney);
-$("#btn__payServices").addEventListener("click", btn_payServices);
-$("#btn__backtransfer").addEventListener("click", backDashboard);
-$("#btn__backpayservices").addEventListener("click", backDashboard);
 hideLoading();
-
 formulario_transfer.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -24,30 +19,6 @@ formulario_paySevices.addEventListener("submit", (e) => {
   payServices();
 });
 
-function btn_transferMoney() {
-  const servicesDiv = document.getElementById("services");
-  const transferDiv = document.getElementById("transfer");
-
-  transferDiv.classList.remove("hidden");
-  servicesDiv.classList.add("hidden");
-}
-function btn_payServices() {
-  const servicesDiv = document.getElementById("services");
-  const payservices = document.getElementById("payservices");
-
-  payservices.classList.remove("hidden");
-  servicesDiv.classList.add("hidden");
-}
-
-function backDashboard() {
-  const servicesDiv = document.getElementById("services");
-  const payservices = document.getElementById("payservices");
-  const transferDiv = document.getElementById("transfer");
-
-  servicesDiv.classList.remove("hidden");
-  payservices.classList.add("hidden");
-  transferDiv.classList.add("hidden");
-}
 function showLoading() {
   var loader = document.getElementById("loader");
   var content = document.getElementById("transfer");
@@ -68,7 +39,6 @@ function hideLoading() {
 function formatBalance() {
   $$(".balance-label").forEach((balance) => {
     let balance_amount = balance.getAttribute("data-balance");
-    console.log(balance_amount)
     balance.textContent = new Intl.NumberFormat("es-PE", {
       style: "currency",
       currency: "PEN",
@@ -144,3 +114,22 @@ async function transfermoney() {
     console.error(`Error while loading data: ${error}`);
   }
 }
+
+document.querySelectorAll("[data-toggle='modal']").forEach((triggerButton) => {
+  const modalElement = document.querySelector(triggerButton.dataset.target);
+  if (modalElement) {
+    const modalInstance = new Modal(modalElement);
+
+    triggerButton.addEventListener("click", () => {
+      modalInstance.show();
+    });
+
+    modalElement
+      .querySelectorAll("[data-dismiss='modal']")
+      .forEach((btnCancel) => {
+        btnCancel.addEventListener("click", () => {
+          modalInstance.hide();
+        });
+      });
+  }
+});

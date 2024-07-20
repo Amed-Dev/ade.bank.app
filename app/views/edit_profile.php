@@ -2,7 +2,7 @@
 $user = $_SESSION['user'];
 $pageTitle = "Mi perfil";
 $bannerTitle = "Mi perfil";
-$styles = '/css/edit_profile.css';
+$styles = ['/css/edit_profile.css', "/css/modal.css"];
 $scripts = '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
 include '../templates/header.php';
 ?>
@@ -147,7 +147,8 @@ include '../templates/header.php';
 
 <script type="module" src="/js/header.js"></script>
 <script type="module" src="/js/edit_profile.js"></script>
-<script src="/js/utils/image_abbr.js"></script>
+<script src="/js/components/avatar/image_abbr.js"></script>
+
 </body>
 
 </html>

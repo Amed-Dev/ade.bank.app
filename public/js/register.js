@@ -1,4 +1,6 @@
 import { $ } from "./utils/dom.js";
+import { showAlert } from "./utils/alert.js";
+
 import { PasswordToggle } from "./components/password_toggle/PasswordToggle.js";
 
 $("#btn__iniciar-sesion").addEventListener("click", iniciarSesion);
@@ -59,11 +61,16 @@ async function registerNewUser() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        message.classList.add("success");
-        message.textContent = data.message;
+        showAlert("¡Registro existoso!", data.message, data.status);
         setTimeout(() => {
           window.location.href = "/login";
-        }, 3000);
+        }, 3500);
+      } else {
+        showAlert(
+          "¡Correo eléctronico ya registrado!",
+          data.message,
+          data.status
+        );
       }
     })
     .catch((error) => console.error("Error:", error));

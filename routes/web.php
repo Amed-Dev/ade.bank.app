@@ -13,11 +13,14 @@ switch ($requestUri) {
     case '/register':
         $controller->register();
         break;
-    case '/logout':
-        $controller->logout();
-        break;
     case '/dashboard':
         $controller->dashboard();
+        break;
+    case '/cuenta_ahorros':
+        $controller->cuenta_ahorros();
+        break;
+    case '/logout':
+        $controller->logout();
         break;
     case '/my_profile':
         $controller->edit_profile();

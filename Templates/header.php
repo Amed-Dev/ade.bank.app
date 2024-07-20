@@ -1,3 +1,16 @@
+<?php
+function generateStylesheetLinks($styles)
+{
+  if (is_array($styles)) {
+    foreach ($styles as $style) {
+      echo "<link rel='stylesheet' href='{$style}'>";
+    }
+  } else {
+    echo "<link rel='stylesheet' href='{$styles}'>";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,25 +20,26 @@
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="<?= $styles ?>">
-  <?php echo $scripts ?? null?>
+  <?php generateStylesheetLinks($styles); ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <?php echo $scripts ?? null ?>
+  <script type="module" src="/js/header.js"></script>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-  <title>Techs | <?php echo $pageTitle; ?></title>
+  <title>ADE Bank | <?php echo $pageTitle; ?></title>
 </head>
 
 <body>
   <header>
-    <a href="/" class="logo">Techs</a>
+    <a href="/" class="logo">ADE</a>
     <nav class="nav-menu">
       <ul>
         <li><a href="/dashboard">Dashboard</a></li>
         <li><a href="/cuenta_ahorros">Cuenta de ahorros</a></li>
         <li id="user-dropdown">
           <div class="dropdown">
-            <div class="">
+            <div class="btn-container">
               <button class="dropdown-btn" id="dropdownBtn">
                 <image-abbr img="" text="<?= $user['Name'] ?>" background="<?= $user['Avatar'] ?>" color="#333"
                   width="32px"></image-abbr>

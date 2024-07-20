@@ -27,8 +27,9 @@ include '../templates/header.php'
     </div>
   </div>
 </main>
-<script type="module" src="/js/header.js"></script>
-<script src="/js/utils/image_abbr.js"></script>
+
+<script src="/js/components/avatar/image_abbr.js"></script>
+
 
 </body>
 

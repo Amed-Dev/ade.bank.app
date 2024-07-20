@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/register.css">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-  <title>Techs | Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>ADE Bank | Register</title>
 </head>
 
 <body>
@@ -44,7 +45,8 @@
             <span class="input-group-addon">
               <i class="fa-solid fa-at"></i>
             </span>
-            <input type="text" name="username" id="usename" class="form-control" placeholder="Usuario" required />
+            <input type="text" name="username" id="username" class="form-control" placeholder="Nombre de usuario"
+              pattern="^\w+$" title="Su nombre de usuario no debe de contener espacios" required />
           </div>
           <div class="input-group">
             <span class="input-group-addon">
@@ -71,7 +73,6 @@
             </span>
           </div>
           <button type="submit">Regístrarse</button>
-          <div id="message"></div>
         </form>
       </div>
     </div>

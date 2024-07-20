@@ -1,4 +1,5 @@
 import { $, $$ } from "./utils/dom.js";
+import { showAlert } from "./utils/alert.js";
 import { Modal } from "./components/modal/modal.js";
 import { PasswordToggle } from "./components/password_toggle/PasswordToggle.js";
 import { PasswordValidator } from "./components/password_validation/Password_Validation.js";
@@ -89,32 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const modalButtons = $$('[data-toggle="modal"]');
-  const modals = {};
-
-  modalButtons.forEach((btn) => {
-    const modalId = btn.dataset.target;
-    const modal = new Modal(modalId);
-    modals[modalId] = modal;
-
-    btnCancel.addEventListener("click", () => {
-      modal.hide();
-    });
-    btn.addEventListener("click", () => {
-      modal.show();
-    });
-  });
   initPasswordToggles();
 });
-
-function showAlert(title, message, icon) {
-  Swal.fire({
-    title: title,
-    text: message,
-    icon: icon,
-    confirmButtonText: "Aceptar",
-  });
-}
 
 async function loadUserData() {
   try {
@@ -201,3 +178,22 @@ async function updatePasswordUser(formSelector) {
     console.error(`Error while changing password: ${error}`);
   }
 }
+
+document.querySelectorAll("[data-toggle='modal']").forEach((triggerButton) => {
+  const modalElement = document.querySelector(triggerButton.dataset.target);
+  if (modalElement) {
+    const modalInstance = new Modal(modalElement);
+
+    triggerButton.addEventListener("click", () => {
+      modalInstance.show();
+    });
+
+    modalElement
+      .querySelectorAll("[data-dismiss='modal']")
+      .forEach((btnCancel) => {
+        btnCancel.addEventListener("click", () => {
+          modalInstance.hide();
+        });
+      });
+  }
+});

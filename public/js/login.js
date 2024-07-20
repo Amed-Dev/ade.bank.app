@@ -1,4 +1,5 @@
 import { $ } from "./utils/dom.js";
+import { showAlert } from "./utils/alert.js";
 import { PasswordToggle } from "./components/password_toggle/PasswordToggle.js";
 
 //Ejecutando funciones
@@ -6,7 +7,7 @@ $("#btn__registrarse").addEventListener("click", register);
 window.addEventListener("resize", anchoPage);
 
 //Declarando variables
-const password_toggle_view = new PasswordToggle('#password_login');
+const password_toggle_view = new PasswordToggle("#password_login");
 
 const message = $("#message");
 var formulario_login = document.querySelector(".formulario__login");
@@ -57,9 +58,7 @@ async function login() {
         message.classList.add("error");
         message.textContent = data.message;
       } else if (data.status === "success") {
-        message.classList.remove("error", "success");
-        message.classList.add("success");
-        message.textContent = data.message;
+        showAlert("¡Inicio de sesión exitoso!", data.message, data.status);
         setTimeout(() => {
           window.location.href = "/dashboard";
         }, 3000);

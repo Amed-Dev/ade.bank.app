@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/404.css">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-  <title>Techs | Page Not Found</title>
+  <title>ADE Bank | Page Not Found</title>
 </head>
 
 <body class="poppins-semibold">
